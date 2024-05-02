@@ -108,10 +108,24 @@ void mostrar(Alumno *x, int n){
 int buscar(Alumno *x, int n, char codi[]){
     int i, pos;
     i=0;
-    while(i<=n and x[i].codi<codi){
+    while(i<=n and strcmp(x[i].codi, codi)<0){
         i++;
     }
-    if(i>n or x[i].codi>codi){
+    if(i>n or strcmp(x[i].codi, codi) != 0){
+        pos=-i;
+    }
+    else{
+        pos=i;
+    }
+    return pos;
+}
+int buscarn(Alumno *x, int n, char nombre[]){
+    int i, pos;
+    i=0;
+    while(i<=n and x[i].nombre<nombre){
+        i++;
+    }
+    if(i>n or x[i].nombre>nombre){
         pos=-i;
     }
     else{
@@ -121,7 +135,8 @@ int buscar(Alumno *x, int n, char codi[]){
 }
 void inserta_o(Alumno *x, int n, int max, char codi[]){
     if(n<max){
-        int pos=buscar(x,n,codi);    //tengo que crear una condicion para el pos=0 ya que no deberia entrar al if
+        int pos=buscar(x,n,codi);
+        cout<<pos;    //tengo que crear una condicion para el pos=0 ya que no deberia entrar al if
         if(pos<=0){
             pos=-pos;
             n++;
@@ -144,6 +159,7 @@ void inserta_o(Alumno *x, int n, int max, char codi[]){
         cout<<"\n\n\nEL ARREGLO ESTA LLENO, NO SE PUDO INSERTAR EL DATO...\n\n";
     }
 }
+
 void elimina_o(Alumno *x, int &n, char codi[]){
     if(n>-1){
         int pos=buscar(x,n,codi);
@@ -166,11 +182,8 @@ void modifica_o(Alumno *x, int n, char codi[]){
         int op;
         int pos=buscar(x,n,codi);
         char codi1[10];
+        char nombre[20];
         if(pos>=0){
-            for(int i=pos;i<=n;i++){        // eliminar el codi
-                x[i]=x[i+1];
-            }
-            n++;
             cout<<"\n\n\tQUE QUIERE MODIFICAR?: ";
             cout<<"\n\n\t1.- CODIGO DEL ALUMNO...";
             cout<<"\n\n\t2.- NOMBRE DEL ALUMNO...";
@@ -180,7 +193,16 @@ void modifica_o(Alumno *x, int n, char codi[]){
             cout<<"\n\n\t\t\t O P C I O N: "; cin>>op;
             switch(op){
                 case 1:
+                {
+                    /*for(int i=pos;i<=n;i++){        
+                        x[i]=x[i+1];
+                    }*/
                     cout<<"\n\n\tESCRIBA EL NUEVO CODIGO DEL ALUMNO: "; cin>>codi1;
+                    n--;
+                    for(int i=pos;i<=n;i++){        
+                        strcpy(x[i].codi,x[i+1].codi);   // ELIMINAR EL CODIGO PARA PODER MODIFICARLO DESPUES x[i].codi=x[i+1].codi;
+                    }
+                    n++;
                     int pos1=buscar(x,n,codi1);
                     pos1=-pos1;
                     for(int i=n;i>=pos1;i--){
@@ -188,27 +210,35 @@ void modifica_o(Alumno *x, int n, char codi[]){
                     }
                     strcpy(x[pos1].codi,codi1);
                     break;
+                }
                 case 2:
-                    cout<<"\n\n\tESCRIBA EL NUEVO NOMBRE DEL ALUMNO: ";
-                    cin>>x[pos1].nombre;
+                {
+                    cout<<"\n\n\tESCRIBA EL NUEVO NOMBRE DEL ALUMNO: "; cin>>nombre;
+                    n--;
+                    for(int i=pos;i<=n;i++){        
+                        strcpy(x[i].nombre,x[i+1].nombre);  // ELIMINAR EL NOMBRE PARA PODER MODIFICARLO DESPUES x[i].nombre=x[i+1].nombre;
+                    }
+                    n++;
+                    int pos1=buscarn(x,n,nombre);
+                    pos1=-pos1;
+                    for(int i=n;i>=pos1;i--){
+                        strcpy(x[i+1].nombre,x[i].nombre);                //x[i+1].codi=x[i].codi;
+                    }
+                    strcpy(x[pos1].nombre,nombre);
                     break;
+                }
                 case 3:
-                    cout<<"\n\n\tESCRIBA LA PRIMERA NOTA DEL ALUMNO: ";
+                    /*cout<<"\n\n\tESCRIBA LA PRIMERA NOTA DEL ALUMNO: ";
                     cin>>x[pos1].nota1;
-                    x[pos1].prom=(x[pos1].nota1+x[pos1].nota2)/2;
+                    x[pos1].prom=(x[pos1].nota1+x[pos1].nota2)/2;*/
                     break;
                 case 4:
-                    cout<<"\n\n\tESCRIBA LA SEGUNDA NOTA DEL ALUMNO: ";
+                    /*cout<<"\n\n\tESCRIBA LA SEGUNDA NOTA DEL ALUMNO: ";
                     cin>>x[pos1].nota2;
-                    x[pos1].prom=(x[pos1].nota1+x[pos1].nota2)/2;
+                    x[pos1].prom=(x[pos1].nota1+x[pos1].nota2)/2;*/
                     break;
                 case 5:
                     break;
-            }
-            int pos1=buscar(x,n,codi);
-            pos1=-pos1;
-            for(int i=n;i>=pos1;i--){
-                x[i+1]=x[i];
             }
             
         }
