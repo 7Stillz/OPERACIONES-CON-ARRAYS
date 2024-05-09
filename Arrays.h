@@ -80,12 +80,12 @@ int busca(int *x, int n, int dato){
     return pos;
 }
 void inserta_o(int *x, int &n,int max, int dato){
-    if(n<max){
-        int pos=busca(x,n,dato);      //tengo que crear una condicion para el pos=0 ya que no deberia entrar al if
-        if(pos<=0){
+    if(n<max-1){
+        int pos=busca(x,n,dato);      
+        if(pos<0 or pos==0){
             pos=-pos;
             n++;
-            for(int i=n;i<pos+1;i++){         // PROBLEMAS SI INSERTO UN DATO REPETIDO, ( SOLO SI INGRESO EL MISMO DATO DE LA POSICION 0)NO SE EJECUTA EL ELSE,
+            for(int i=n;i>=pos+1;i--){         
 
                 x[i]=x[i-1];
             }

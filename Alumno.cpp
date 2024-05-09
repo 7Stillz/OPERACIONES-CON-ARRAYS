@@ -90,7 +90,7 @@ int main(){
                             system("pause");
                             break;
                         case 4:
-                            
+                            mostrar(x,n);
                             system("pause");
                             break;
                         case 5:
