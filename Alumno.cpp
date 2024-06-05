@@ -6,7 +6,7 @@ using namespace std;
 int main(){
     Alumno x[max];
     int opc, op, n=-1;
-    char codi[10];
+    char codi[20];
     do{
         system("cls");
         cout << "\nM  E  N  U";
@@ -74,8 +74,6 @@ int main(){
                         case 1:
                             cout<<"\n\t\tINGRESE EL CODIGO DEL ALUMNO: "; cin>>codi;
                             inserta_o(x,n,max,codi);
-                            mostrar(x,n);
-                            system("pause");
                             break;
                         case 2:
                             cout<<"\n\t\tINGRESE EL CODIGO DEL ALUMNO A ELIMINAR: "; cin>>codi;
@@ -90,6 +88,7 @@ int main(){
                             system("pause");
                             break;
                         case 4:
+                            ordenades(x,n);
                             mostrar(x,n);
                             system("pause");
                             break;
@@ -98,7 +97,7 @@ int main(){
                     }
 
 
-                }while(opc>0 and opc<4);
+                }while(opc>0 and opc<5);
                 break;
             case 3:
                 break;

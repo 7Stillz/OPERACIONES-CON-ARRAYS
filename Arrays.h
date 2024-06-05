@@ -12,6 +12,54 @@ void inserta_d(int *x, int &n, int max, int dato){
         system("pause");
     }
 }
+void insertad_DD(int *x, int &n, int max, int ref){
+    if(n<max-1){
+        int dato, i=-1, cen=0, pos;
+        while(i<n and cen==0){
+            i++;
+            if(x[i]==ref){
+                pos=i;
+                cen=1;   // LO ENCONTRO AL DATO
+            }
+        }
+        if(cen==1){
+            n++;
+            for(int j=n;j>=pos+1;j--){
+                x[j]=x[j-1];
+            }
+            cout<<"ESCRIBA EL DATO A INSERTAR DESPUES DE "<<ref<<" : ";
+            cin>>dato;
+            x[pos+1]=dato;
+        }
+        else cout<<"EL DATO REFERENCIAL NO EXISTE EL ARREGLO";
+
+    }
+    else cout<<"\n\n\nEL ARREGLO ESTA LLENO, NO SE PUDO INSERTAR EL DATO...\n\n";
+}
+void insertad_AD(int *x, int &n, int max, int ref){
+    if(n<max-1){
+        int dato, i=-1, cen=0, pos;
+        while(i<n and cen==0){
+            i++;  
+            if(x[i]==ref){
+                pos=i;
+                cen=1;   // LO ENCONTRO AL DATO
+            }
+        }
+        if(cen==1){
+            n++;
+            for(int j=n;j>=pos+1;j--){
+                x[j]=x[j-1];
+            }
+            cout<<"ESCRIBA EL DATO A INSERTAR DESPUES DE "<<ref<<" : ";
+            cin>>dato;
+            x[pos]=dato;
+        }
+        else cout<<"EL DATO REFERENCIAL NO EXISTE EL ARREGLO";
+
+    }
+    else cout<<"\n\n\nEL ARREGLO ESTA LLENO, NO SE PUDO INSERTAR EL DATO...\n\n";
+}
 void elimina_d(int *x, int &n, int dato){
     int i,j,cen;
     if(n>-1){
@@ -34,6 +82,26 @@ void elimina_d(int *x, int &n, int dato){
         cout<<"\n\n\nEL ARREGLO ESTA VACIO...\n\n\n";
         system("pause");
     }
+}
+void eliminad_AD(int *x, int &n, int ref){
+    int i=-1, cen=0, pos;
+    if(n>-1){
+        while(i<n and cen==0){
+            i++;
+            if(x[i]==ref){
+                pos=i;
+                cen=1;
+            }
+        }
+        if(cen==1){
+            n--;
+            for(int j=pos-1;j<=n;j++){
+                x[j]=x[j+1];
+            }
+        }
+        else cout<<"EL DATO REFERENCIAL NO EXISTE";
+    }
+    else cout<<"NO HAY DATOS EN EL ARREGLO";
 }
 void modifica_d(int *x, int n,int dato){
     int i, cen;
@@ -70,7 +138,7 @@ int busca(int *x, int n, int dato){
     i=0;
     while(i<=n and x[i]<dato){
         i++;
-    }
+    }        
     if(i>n or x[i]>dato){
         pos=-i;
     }
@@ -79,6 +147,7 @@ int busca(int *x, int n, int dato){
     }
     return pos;
 }
+
 void inserta_o(int *x, int &n,int max, int dato){
     if(n<max-1){
         int pos=busca(x,n,dato);      
@@ -98,6 +167,43 @@ void inserta_o(int *x, int &n,int max, int dato){
     else{
         cout<<"\n\n\nEL ARREGLO ESTA LLENO, NO SE PUDO INSERTAR EL DATO...\n\n";
     }
+}
+void insertao_DD(int *x, int &n, int max, int ref){
+    if(n<max-1){
+        int dato;
+        int pos=busca(x,n,ref);
+        cout<<pos; 
+        if(pos>=0){
+            n++;
+            for(int i=n;i>=pos+1;i--){                        // FUNCIONA PARA TODO
+                x[i]=x[i-1];
+            }
+            cout<<"ESCRIBA EL DATO A INSERTAR DESPUES DE "<<ref<<" : ";
+            cin>>dato;
+            x[pos+1]=dato;
+        }
+        else cout<<"EL DATO REFERENCIAL NO EXISTE";
+
+    }
+    else  cout<<"\n\n\nEL ARREGLO ESTA LLENO, NO SE PUDO INSERTAR EL DATO...\n\n";
+}
+void insertao_AD(int *x, int &n, int max, int ref){
+    if(n<max-1){
+        int dato;
+        int pos=busca(x,n,ref);
+        if(pos>=0){
+            n++;
+            for(int i=n;i>=pos+1;i--){
+                x[i]=x[i-1];
+            }
+            cout<<"ESCRIBA EL DATO A INSERTAR ANTES DE "<<ref<<" : ";
+            cin>>dato;
+            x[pos]=dato;
+        }
+        else cout<<"EL DATO REFERENCIAL NO EXISTE";
+
+    }
+    else  cout<<"\n\n\nEL ARREGLO ESTA LLENO, NO SE PUDO INSERTAR EL DATO...\n\n";
 }
 void elimina_o(int *x, int &n, int dato){
     if(n>-1){

@@ -2,7 +2,7 @@
 #include<string.h>
 using namespace std;
 struct Alumno{
-    char codi[10], nombre[20];
+    char codi[20], nombre[20];
     float nota1, nota2, prom;
 };
 void inserta_d(Alumno *x, int &n, int max, char codi[]){
@@ -122,6 +122,7 @@ int buscar(Alumno *x, int n, char codi[]){
 
 void inserta_o(Alumno *x, int &n, int max, char codi[]){
     if(n<max-1){
+        Alumno aux;
         int pos=buscar(x,n,codi);
         if(pos<=0){
             pos=-pos;
@@ -138,7 +139,6 @@ void inserta_o(Alumno *x, int &n, int max, char codi[]){
             cout<<"\n\t\tINGRESE LA PRIMERA NOTA DEL ALUMNO: "; cin>>x[pos].nota1;
             cout<<"\n\t\tINGRESE LA SEGUNDA NOTA DEL ALUMNO: "; cin>>x[pos].nota2;
             x[pos].prom=(x[pos].nota1+x[pos].nota2)/2;
-
         }
         else{
             cout<<"\n\n\nNO SE PUDO INSERTAR EL DATO YA QUE YA EXISTE EN EL ARREGLO...\n\n";
@@ -148,7 +148,14 @@ void inserta_o(Alumno *x, int &n, int max, char codi[]){
         cout<<"\n\n\nEL ARREGLO ESTA LLENO, NO SE PUDO INSERTAR EL DATO...\n\n";
     }
 }
-
+void ordenades(Alumno *x, int &n){
+    Alumno aux;
+    for(int i=0;i<n+1/2;i++){ // 
+        aux=x[i];
+        x[i]=x[n-i];
+        x[n-i]=aux;
+    }
+}
 void elimina_o(Alumno *x, int &n, char codi[]){
     if(n>-1){
         int pos=buscar(x,n,codi);
